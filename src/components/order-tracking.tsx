@@ -13,7 +13,7 @@ interface OrderTrackingProps {
   order: Order
 }
 
-export function OrderTracking({ order }: OrderTrackingProps) {
+export default function OrderTracking({ order }: OrderTrackingProps) {
   const steps = [
     { status: "pending", icon: Clock, label: "Order Placed" },
     { status: "processing", icon: Package, label: "Processing" },

@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { Cart } from "./components/cart"
-import { Checkout } from "./components/checkout"
-import { OrderTracking } from "./components/order-tracking"
-import { ProductCatalog } from "./components/product-catalog"
+import Cart from "./components/cart"
+import Checkout from "./components/checkout"
+import OrderTracking from "./components/order-tracking"
+import ProductCatalog from "./components/product-catalog"
 import { CartItem, Order, Product, ShippingAddress } from "./types"
 import { ShoppingBag } from "lucide-react"
 
+// Sample products data
 const sampleProducts: Product[] = [
   {
     id: "1",

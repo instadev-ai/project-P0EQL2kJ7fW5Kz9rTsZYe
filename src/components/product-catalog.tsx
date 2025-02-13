@@ -1,5 +1,5 @@
 import { Product } from "@/types"
-import { ProductCard } from "./product-card"
+import ProductCard from "./product-card"
 import { useState } from "react"
 import { Button } from "./ui/button"
 
@@ -8,7 +8,7 @@ interface ProductCatalogProps {
   onAddToCart: (product: Product) => void
 }
 
-export function ProductCatalog({ products, onAddToCart }: ProductCatalogProps) {
+export default function ProductCatalog({ products, onAddToCart }: ProductCatalogProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const categories = Array.from(

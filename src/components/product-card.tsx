@@ -9,7 +9,7 @@ interface ProductCardProps {
   onAddToCart: (product: Product) => void
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (

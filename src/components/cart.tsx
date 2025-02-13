@@ -17,7 +17,7 @@ interface CartProps {
   onCheckout: () => void
 }
 
-export function Cart({
+export default function Cart({
   items,
   onUpdateQuantity,
   onRemoveItem,

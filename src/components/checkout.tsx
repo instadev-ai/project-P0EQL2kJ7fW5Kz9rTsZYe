@@ -17,7 +17,7 @@ interface CheckoutProps {
   onPlaceOrder: (shippingAddress: ShippingAddress) => void
 }
 
-export function Checkout({ items, onPlaceOrder }: CheckoutProps) {
+export default function Checkout({ items, onPlaceOrder }: CheckoutProps) {
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
     fullName: "",
     streetAddress: "",
