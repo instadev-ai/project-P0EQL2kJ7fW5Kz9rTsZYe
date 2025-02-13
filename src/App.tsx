@@ -5,6 +5,8 @@ import OrderTracking from "./components/order-tracking"
 import ProductCatalog from "./components/product-catalog"
 import { CartItem, Order, Product, ShippingAddress } from "./types"
 import { ShoppingBag } from "lucide-react"
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
 
 // Sample products data
 const sampleProducts: Product[] = [
@@ -67,28 +69,49 @@ export default function App() {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id)
       if (existingItem) {
+        toast.success(`Added another ${product.name} to your cart`, {
+          description: `Cart quantity: ${existingItem.quantity + 1}`,
+        })
         return prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
+      toast.success(`Added ${product.name} to your cart`, {
+        description: "Click here to view your cart",
+        action: {
+          label: "View Cart",
+          onClick: () => document.querySelector('[aria-label="Shopping Cart"]')?.click(),
+        },
+      })
       return [...prevItems, { ...product, quantity: 1 }]
     })
   }
 
   const handleUpdateQuantity = (itemId: string, quantity: number) => {
-    setCartItems((prevItems) =>
-      quantity === 0
-        ? prevItems.filter((item) => item.id !== itemId)
-        : prevItems.map((item) =>
-            item.id === itemId ? { ...item, quantity } : item
-          )
-    )
+    setCartItems((prevItems) => {
+      if (quantity === 0) {
+        const item = prevItems.find((item) => item.id === itemId)
+        if (item) {
+          toast.info(`Removed ${item.name} from your cart`)
+        }
+        return prevItems.filter((item) => item.id !== itemId)
+      }
+      return prevItems.map((item) =>
+        item.id === itemId ? { ...item, quantity } : item
+      )
+    })
   }
 
   const handleRemoveItem = (itemId: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId))
+    setCartItems((prevItems) => {
+      const item = prevItems.find((item) => item.id === itemId)
+      if (item) {
+        toast.info(`Removed ${item.name} from your cart`)
+      }
+      return prevItems.filter((item) => item.id !== itemId)
+    })
   }
 
   const handleCheckout = () => {
@@ -113,6 +136,9 @@ export default function App() {
     setCurrentOrder(newOrder)
     setCartItems([])
     setShowCheckout(false)
+    toast.success("Order placed successfully!", {
+      description: `Order ID: ${newOrder.id}`,
+    })
   }
 
   if (currentOrder) {
@@ -129,6 +155,7 @@ export default function App() {
           </div>
         </header>
         <OrderTracking order={currentOrder} />
+        <Toaster />
       </div>
     )
   }
@@ -147,6 +174,7 @@ export default function App() {
           </div>
         </header>
         <Checkout items={cartItems} onPlaceOrder={handlePlaceOrder} />
+        <Toaster />
       </div>
     )
   }
@@ -215,6 +243,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <Toaster />
     </div>
   )
 }
