@@ -41,7 +41,7 @@ const sampleProducts: Product[] = [
   },
 ]
 
-function App() {
+export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [currentOrder, setCurrentOrder] = useState<Order | null>(null)
   const [showCheckout, setShowCheckout] = useState(false)
